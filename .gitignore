@@ -108,3 +108,10 @@ venv.bak/
 models
 logs
 evaluation/evaluation_data
+
+# Images
+*.png
+*.jpg
+
+# Archives
+*.gz
