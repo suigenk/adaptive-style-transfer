@@ -20,8 +20,9 @@ from __future__ import print_function
 
 import os
 import time
+import cv2
 from glob import glob
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 from collections import namedtuple
 from tqdm import tqdm
@@ -414,7 +415,8 @@ class Artgan(object):
         for img_idx, img_name in enumerate(tqdm(image_paths)):
 
             img_path = os.path.join(path_to_folder, img_name)
-            img = scipy.misc.imread(img_path, mode='RGB')
+            img = cv2.imread(img_path)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img_shape = img.shape[:2]
             # Prepare image for feeding into network.
             scale_mult = self.image_size / np.min(img_shape)
@@ -486,12 +488,13 @@ class Artgan(object):
         names = [x for x in names if os.path.basename(x)[0] != '.']
         names.sort()
         for img_idx, img_path in enumerate(tqdm(names)):
-            img = scipy.misc.imread(img_path, mode='RGB')
+            img = cv2.imread(img_path)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img_shape = img.shape[:2]
 
             # Resize the smallest side of the image to the self.image_size
-            alpha = float(self.image_size) / float(min(img_shape))
-            img = scipy.misc.imresize(img, size=alpha)
+            # alpha = float(self.image_size) / float(min(img_shape))
+            # img = scipy.misc.imresize(img, size=alpha)
             img = np.expand_dims(img, axis=0)
 
             img = self.sess.run(
@@ -507,7 +510,7 @@ class Artgan(object):
             else:
                 pass
             img_name = os.path.basename(img_path)
-            scipy.misc.imsave(os.path.join(to_save_dir, img_name[:-4] + "_stylized.jpg"), img)
+            cv2.imwrite(os.path.join(to_save_dir, img_name[:-4] + "_stylized.jpg"), img)
 
         print("Inference is finished.")
 

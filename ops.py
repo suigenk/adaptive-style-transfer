@@ -17,12 +17,12 @@
 
 import math
 import numpy as np
-import tensorflow as tf
-import tensorflow.contrib.slim as slim
+import tensorflow.compat.v1 as tf
+import tf_slim as slim
 from tensorflow.python.framework import ops
 import cv2
 
-import tensorflow.contrib.layers as tflayers
+import tensorflow.keras.layers as tflayers
 
 from utils import *
 
@@ -81,4 +81,3 @@ def linear(input_, output_size, scope=None, stddev=0.02, bias_start=0.0, with_w=
             return tf.matmul(input_, matrix) + bias, matrix, bias
         else:
             return tf.matmul(input_, matrix) + bias
-

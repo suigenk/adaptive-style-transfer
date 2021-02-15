@@ -21,7 +21,7 @@ import os.path
 from os.path import join
 import time
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import scipy.stats.mstats as stat
 import scipy.spatial.distance as spdis

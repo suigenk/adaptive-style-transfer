@@ -17,8 +17,8 @@
 
 import numpy as np
 import sklearn.preprocessing
-import tensorflow as tf
-import tensorflow.contrib.slim as slim
+import tensorflow.compat.v1 as tf
+import tf_slim as slim
 from tensorflow.python import pywrap_tensorflow
 
 from features import extract_features
@@ -179,4 +179,3 @@ class SlimFeatureExtractor(object):
             sklearn.preprocessing.normalize(features, norm='l2', axis=1, copy=False)
         assert len(features) == len(image_paths)
         return features
-
