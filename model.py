@@ -510,7 +510,7 @@ class Artgan(object):
             else:
                 pass
             img_name = os.path.basename(img_path)
-            cv2.imwrite(os.path.join(to_save_dir, img_name[:-4] + "_stylized.jpg"), img)
+            cv2.imwrite(os.path.join(to_save_dir, img_name[:-4] + "_stylized.jpg"), cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
 
         print("Inference is finished.")
 
